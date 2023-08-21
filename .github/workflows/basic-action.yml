@@ -83,4 +83,21 @@ jobs:
         run: echo "op01=yesthisisoutputhere" >> $GITHUB_OUTPUT
 
       - name: Use the output
-        run: echo "The output was ${{ steps.abc10.outputs.op01 }}"
+        run: echo "The output is ${{ steps.abc10.outputs.op01 }}"
+
+  OutputbtwJobs:
+    runs-on: ubuntu-latest
+    outputs:
+      op02: ${{ steps.toanotherjob.outputs.op01 }}
+
+    steps:
+      - name: Output a value
+        id: toanotherjob
+        run: echo "op01=yesitsoutputbetweenjobs" >> $GITHUB_OUTPUT
+
+  GetOutputFromAnotherJob:
+    runs-on: ubuntu-latest
+    needs: OutputbtwJobs
+    steps:
+      - name: Use the output
+        run: echo "The output is ${{ needs.OutputbtwJobs.outputs.op02 }}"
