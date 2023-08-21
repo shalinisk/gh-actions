@@ -7,9 +7,13 @@ run-name: Triggered by ${{github.event_name}} event
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+    # you can also include regex filters
+  # pull_request:
+  #   branches: [ "main" ]
+  #   paths: '**/*.js'
+  #   paths-ignore:
+  #     - '**/README.md'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -23,7 +27,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # with:
+        #   ref: any inputs to pass
 
       # Runs a single command using the runners shell
       - name: Greetings
@@ -34,3 +41,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  job02:
+    needs: job01 # dependency
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a multi-line script
+        run: |
+          echo This is the second job.
+
+      - name: workflow metadata
+        run: |
+          echo "${{toJSON(github)}}" # all metadata. It also has functions like toJSON and fromJSON
+          echo "workflow: ${{github.workflow}}, action: ${{github.action}}, run-id: ${{github.run_id}}, run-number: ${{github.run_number}}"
+          echo "actor: ${{github.actor}}, repository: ${{github.repository}}, event-name: ${{github.event_name}}, event-path: ${{github.event_path}}, workspace: ${{github.workspace}}, sha: ${{github.sha}}, ref: ${{github.ref}}, head-ref: ${{github.head_ref}}, base-ref: ${{github.base_ref}}, event: ${{toJson(github.event)}}"
