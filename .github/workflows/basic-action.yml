@@ -7,7 +7,7 @@ run-name: Triggered by ${{github.event_name}} event
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: ["main"]
+    branches: ["features/**", "main"]
     # you can also include regex filters
   # pull_request:
   #   branches: [ "main" ]
@@ -57,7 +57,6 @@ jobs:
         run: |
           echo "${{toJSON(github)}}" # all metadata. It also has functions like toJSON and fromJSON
           echo "workflow: ${{github.workflow}}, action: ${{github.action}}, run-id: ${{github.run_id}}, run-number: ${{github.run_number}}"
-          echo "actor: ${{github.actor}}, repository: ${{github.repository}}, event-name: ${{github.event_name}}, event-path: ${{github.event_path}}, workspace: ${{github.workspace}}, sha: ${{github.sha}}, ref: ${{github.ref}}, head-ref: ${{github.head_ref}}, base-ref: ${{github.base_ref}}, event: ${{toJson(github.event)}}"
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
@@ -70,13 +69,13 @@ jobs:
         run: ls -R
         working-directory: ~/download/artifacts
 
-  job03:
+  basicOutputs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Python # Set Python version
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: "3.10"
 
       - name: Output a value
         id: abc10
