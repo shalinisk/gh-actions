@@ -43,7 +43,8 @@ jobs:
         with:
           name: some-artifact
           path: |
-            ${{github.workspace}}/README.md
+            # ${{github.workspace}}/README.md
+            artifacts101/README.md
 
   job02:
     needs: job01 # dependency
@@ -63,7 +64,7 @@ jobs:
         with:
           name: some-artifact
           path: |
-            /download/artifacts
+            artifacts101
 
       - name: List downloaded files
         run: ls -R
@@ -101,3 +102,11 @@ jobs:
     steps:
       - name: Use the output
         run: echo "The output is ${{ needs.OutputbtwJobs.outputs.op02 }}"
+
+  GetOutputFromAnotherJobv2:
+    runs-on: ubuntu-latest
+    needs: OutputbtwJobs
+    steps:
+      - env:
+          OUTPUT1: ${{ needs.OutputbtwJobs.outputs.op02 }}
+        run: echo "The output is $OUTPUT1"
