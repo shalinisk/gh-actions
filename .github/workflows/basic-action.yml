@@ -71,6 +71,8 @@ jobs:
 
   basicOutputs:
     runs-on: ubuntu-latest
+    outputs:
+      op01: ${{ steps.abc10.outputs.op01 }}
     steps:
       - name: Setup Python # Set Python version
         uses: actions/setup-python@v4
