@@ -79,7 +79,7 @@ jobs:
 
       - name: Output a value
         id: abc10
-        run: echo "::set-output name=op01::yesthisisoutputhere"
+        run: echo "{op01}=yesthisisoutputhere" >> $GITHUB_OUTPUT
 
       - name: Use the output
         run: echo "The output was ${{ steps.abc10.outputs.op01 }}"
