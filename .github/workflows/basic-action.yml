@@ -69,3 +69,18 @@ jobs:
       - name: List downloaded files
         run: ls -R
         working-directory: ~/download/artifacts
+
+  job03:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python # Set Python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Output a value
+        id: abc10
+        run: echo "::set-output name=op01::yesthisisoutputhere"
+
+      - name: Use the output
+        run: echo "The output was ${{ steps.abc10.outputs.op01 }}"

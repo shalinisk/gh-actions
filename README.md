@@ -18,6 +18,10 @@ Job artifacts can be downloaded manually (UI or rest api) or automatically (i.e.
 They are not available across jobs, so you need to download them in a subsequent job where you want to use them
 If the name input parameter is not provided, all artifacts will be downloaded
 
+```python
+print(f'::set-output name=outputval01::{result}')
+```
+
 ## Questions
 
 1. Can artifacts be encrypted or protected?
