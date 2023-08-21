@@ -63,16 +63,15 @@ jobs:
         with:
           name: some-artifact
           path: |
-            ~/download/artifacts
+            /download/artifacts
 
       - name: List downloaded files
         run: ls -R
-        working-directory: ~/download/artifacts
+        working-directory: /download/artifacts
 
   basicOutputs:
     runs-on: ubuntu-latest
-    outputs:
-      op01: ${{ steps.abc10.outputs.op01 }}
+
     steps:
       - name: Setup Python # Set Python version
         uses: actions/setup-python@v4
@@ -81,7 +80,7 @@ jobs:
 
       - name: Output a value
         id: abc10
-        run: echo "{op01}=yesthisisoutputhere" >> $GITHUB_OUTPUT
+        run: echo "op01=yesthisisoutputhere" >> $GITHUB_OUTPUT
 
       - name: Use the output
         run: echo "The output was ${{ steps.abc10.outputs.op01 }}"
