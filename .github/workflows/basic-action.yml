@@ -17,6 +17,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  THIS_ENV_VAR: ${{github.event_name}}
+
+permissions: read-all
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "job01"
@@ -36,7 +40,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "The env var THIS_ENV_VAR: ${{env.THIS_ENV_VAR}}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3

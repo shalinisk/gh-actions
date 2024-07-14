@@ -22,6 +22,20 @@ If the name input parameter is not provided, all artifacts will be downloaded
 print(f'::set-output name=outputval01::{result}')
 ```
 
+Environment variables can be at workflow level or job level
+
+There is an option to set the default shell i.e. bash or python etc.,
+You can't overwrite the value of the default environment variables named GITHUB*\* and RUNNER*\*
+
+Secrets can be set at repo level but that is not scalable
+Instead set them at environment level
+
+At job level, specify the environment that contains the related secrets
+
+Custom actions - javascript or docker container or composite actions
+
+By default a workflow has write access to the repo that contains it except for pull_request events
+
 ## Questions
 
 1. Can artifacts be encrypted or protected?
